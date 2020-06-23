@@ -272,7 +272,47 @@ class gaussForwardInterpolation():
         print("\nValue at ",val," is ", sum_)
 
 class gaussBackward:
-    pass
+    def inputFunc(self):
+        n = int(input("Enter the number of terms: "))
+        x=[0]*n
+        for i in range(n):
+            x[i] = float(input("Enter the value of x at: "+str(i)+": "))
+        y=[0]*n
+        for i in range(n):
+            y[i] = float(input("Enter the value of y at: "+str(i)+": "))
+        return x,y,n
+    
+    def calculate(self):
+        x,y,n =self.inputFunc()
+
+        val = float(input("Enter the value of X to calculate at: "))
+        h = x[1] - x[0]
+        t=[0]*20
+        diff=[t]*20
+
+        for i in range(0,n-1):
+            diff[i][1] = y[i+1] - y[i]
+        for j in range(2,5):
+            for i in range(n-j):
+                diff[i][j] = diff[i+1][j-1] - diff[i][j-1]
+        i=0
+        h = x[1] - x[0]
+        flag = False
+        while(x[i]<val):
+            i-=-1
+            flag = True
+        if(not flag):
+            i-=-1
+        i-=1
+        p=(val-x[i])/h
+        y1 = p*diff[i-1][1]
+        y2 = p*(p+1)*diff[i-1][2]/2
+        y3 = (p+1) * p * (p-1) * diff[i-2][3]/6
+        y4 = (p+2)*(p+1)*p*(p-1)*diff[i-3][4]/24
+        sum_ = y[i]+y1+y2+y3+y4
+
+        print("The result is : ", sum_)
+
 
 class trapezoidal:
     coeff=[]
