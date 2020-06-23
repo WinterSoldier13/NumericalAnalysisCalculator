@@ -150,10 +150,10 @@ class newtonForwardInterpolation:
         # Displaying the forward difference table 
         print("_____________________________FORWARD INTERPOLATION TABLE___________________________________________________________________")
         for i in range(n): 
-            print(x[i], end = "\t"); 
+            print(x[i], end = "\t") 
             for j in range(n - i): 
-                print(y[i][j], end = "\t"); 
-            print(""); 
+                print(y[i][j], end = "\t")
+            print("") 
         print("_____________________________________________________________________________________________________________________________________________")
         
         
@@ -222,13 +222,13 @@ class gaussForwardInterpolation():
     # function for calculating coefficient of Y  
     def p_cal(self, p, n):  
     
-        temp = p;  
+        temp = p  
         for i in range(1, n):  
             if(i%2==1): 
                 temp * (p - i) 
             else: 
                 temp * (p + i) 
-        return temp;  
+        return temp  
     # function for factorial 
     def fact(self, n):  
         f = 1 
@@ -252,14 +252,14 @@ class gaussForwardInterpolation():
 
         for i in range(1, n):  
             for j in range(n - i):  
-                y[j][i] = round((y[j + 1][i - 1] - y[j][i - 1]),4);  
+                y[j][i] = round((y[j + 1][i - 1] - y[j][i - 1]),4)  
   
         # Printing the Triangle  
         for i in range(n):  
-            print(x[i], end = "\t");  
+            print(x[i], end = "\t")  
             for j in range(n - i):  
-                print(y[i][j], end = "\t");  
-            print("");  
+                print(y[i][j], end = "\t")  
+            print("")  
         
         val = float(input("Enter the value of Y to predict on: "))
 
