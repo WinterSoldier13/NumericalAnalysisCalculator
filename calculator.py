@@ -553,7 +553,8 @@ def disp():
         ob = gaussForwardInterpolation()
         ob.calculate()
     elif(inp == 6):
-        print("S#it, I don't know GaussBackward Interpolation yet ")
+        ob = gaussBackward()
+        ob.calculate()
     elif(inp == 7):
         ob = trapezoidal()
         ob.calculate()
