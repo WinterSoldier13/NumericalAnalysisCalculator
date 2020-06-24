@@ -171,6 +171,8 @@ class newtonForwardInterpolation:
 
         
 
+        
+        
 class newtonBackward:
     def cal_u(self,u,n):
         temp = u
