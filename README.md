@@ -16,3 +16,9 @@ A simple python based calculator which is capable of solving questions on :
 7: Trapezoidal Rule
 
 8: Simpson OneThird Rule
+
+# What you'll need
+pyrebase
+
+# How to run?
+python3 calculator.py
