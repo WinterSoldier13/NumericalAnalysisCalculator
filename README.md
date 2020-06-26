@@ -18,7 +18,7 @@ A simple python based calculator which is capable of solving questions on :
 8: Simpson OneThird Rule
 
 # What you'll need
-pyrebase
+<br>pyrebase
 pip install pyrebase
 
 # How to run?
