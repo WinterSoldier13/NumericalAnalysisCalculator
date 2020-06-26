@@ -19,6 +19,7 @@ A simple python based calculator which is capable of solving questions on :
 
 # What you'll need
 pyrebase
+pip install pyrebase
 
 # How to run?
-python3 calculator.py
+$/> python3 calculator.py
